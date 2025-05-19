@@ -23,7 +23,7 @@ module "k8s" {
   master_locations = [
     { zone      = "ru-central1-a", subnet_id = yandex_vpc_subnet.subnet-a.id },
     #{ zone      = "ru-central1-b", subnet_id = yandex_vpc_subnet.subnet-b.id },
-    #{ zone      = "ru-central1-c", subnet_id = yandex_vpc_subnet.subnet-c.id },
+    #{ zone      = "ru-central1-d", subnet_id = yandex_vpc_subnet.subnet-c.id },
   ]
 
   # 3) Группы нод: любое имя ключа — это имя пул-группы
