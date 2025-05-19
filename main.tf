@@ -16,53 +16,38 @@ provider "yandex" {
 module "k8s" {
   source = "github.com/terraform-yc-modules/terraform-yc-kubernetes"
 
-  # Конфигурация кластера
-  cluster_config = {
-    name               = "plafac"
-    network_id         = yandex_vpc_network.k8s.id
-    service_account_id = yandex_iam_service_account.k8s.id
+  # 1) Сеть
+  network_id = yandex_vpc_network.k8s.id
 
-    # Для zonal-кластера — одна локация
-    master_locations = [
-      { zone = "ru-central1-a", subnet_id = yandex_vpc_subnet.subnet-a.id },
-      #{ zone = "ru-central1-b", subnet_id = yandex_vpc_subnet.subnet-b.id },
-      #{ zone = "ru-central1-c", subnet_id = yandex_vpc_subnet.subnet-c.id },
-    ]
+  # 2) Локации мастеров (одна — zonal, три — regional)
+  master_locations = [
+    { zone      = "ru-central1-a", subnet_id = yandex_vpc_subnet.subnet-a.id },
+    #{ zone      = "ru-central1-b", subnet_id = yandex_vpc_subnet.subnet-b.id },
+    #{ zone      = "ru-central1-c", subnet_id = yandex_vpc_subnet.subnet-c.id },
+  ]
 
-    # (опционально) диапазоны IP для кластера
-    # cluster_ipv4_range = "10.128.0.0/16"
-    # service_ipv4_range = "10.96.0.0/16"
-  }
-
-  # Группы нод
+  # 3) Группы нод: любое имя ключа — это имя пул-группы
   node_groups = {
     workers = {
-      auto_scale   = false
-      node_count   = 1
-      cores        = 1
-      memory       = 2
-      node_disk_size = 20
-      nat          = true
-      # subnet_id не нужен — будет взят из master_locations
+      fixed_scale    = { size = 3 }
+      cores          = 2
+      memory         = 4
+      node_disk_size = 50
+      nat            = true
     }
     monitoring = {
-      auto_scale   = false
-      node_count   = 1
-      cores        = 1
-      memory       = 2
+      fixed_scale    = { size = 1 }
+      cores          = 1
+      memory         = 2
       node_disk_size = 20
-      nat          = true
-      # subnet_id не нужен — будет взят из master_locations
+      nat            = false
     }
     postgres = {
-      auto_scale   = false
-      node_count   = 1
-      cores        = 1
-      memory       = 2
+      fixed_scale    = { size = 1 }
+      cores          = 1
+      memory         = 2
       node_disk_size = 20
-      nat          = true
-      # subnet_id не нужен — будет взят из master_locations
+      nat            = false
     }
   }
 }
-
