@@ -1,7 +1,15 @@
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
 provider "yandex" {
-  token     = var.yc_token
-  cloud_id  = var.yc_cloud_id
-  folder_id = var.yc_folder_id
+  #token     = var.yc_token
+  #cloud_id  = var.yc_cloud_id
+  #folder_id = var.yc_folder_id
   zone      = "ru-central1-a"
 }
 
@@ -17,7 +25,7 @@ module "k8s" {
     "default" = {
       node_zone        = "ru-central1-a"
       node_count       = 2
-      auto_scale       = true
+      auto_scale       = false
       auto_scale_min   = 2
       auto_scale_max   = 5
       node_labels      = { "role" = "worker" }
