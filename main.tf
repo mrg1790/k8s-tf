@@ -17,7 +17,7 @@ module "k8s" {
   source = "github.com/terraform-yc-modules/terraform-yc-kubernetes"
 
   # 1) Сеть
-  network_id = yandex_vpc_network.k8s.id
+  network_id = yandex_vpc_network.app.id
 
   # 2) Локации мастеров (одна — zonal, три — regional)
   master_locations = [
