@@ -42,6 +42,9 @@ module "k8s" {
       memory         = 2
       node_disk_size = 20
       nat            = false
+      node_labels = {
+        role = "postgres"
+      }
     }
   }
 }
