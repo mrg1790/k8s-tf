@@ -591,11 +591,16 @@ primary:
   ## @param primary.nodeSelector Node labels for PostgreSQL primary pods assignment
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
-  nodeSelector: {}
+  nodeSelector: 
+    cloud.yandex.com/node-group: postgres
   ## @param primary.tolerations Tolerations for PostgreSQL primary pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
-  tolerations: []
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "postgres"
+    effect: "NoSchedule"
   ## @param primary.topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
   ##
