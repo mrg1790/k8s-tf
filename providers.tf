@@ -12,6 +12,5 @@ provider "helm" {
   kubernetes {
     config_path    = "~/.kube/config"
     #config_context = "yc-k8s-cluster-jmhhsgnq"
-    load_config_file = false      # чтобы не лезть в ~/.kube/config дважды
   }
 }
