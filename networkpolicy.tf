@@ -1,3 +1,15 @@
+resource "kubernetes_network_policy" "default_deny_all_postgres" {
+  metadata {
+    name      = "deny-all"
+    namespace = "postgres"
+  }
+
+  spec {
+    pod_selector {} # применимо ко всем Pod’ам
+    policy_types = ["Ingress"]
+  }
+}
+
 resource "kubernetes_network_policy" "allow_app_to_postgres" {
   metadata {
     name      = "allow-app-to-postgres"
@@ -7,7 +19,7 @@ resource "kubernetes_network_policy" "allow_app_to_postgres" {
   spec {
     pod_selector {
       match_labels = {
-        app = "pg"
+        app = "postgresql" # Убедись, что Pod PostgreSQL имеет эту метку
       }
     }
 
@@ -15,7 +27,7 @@ resource "kubernetes_network_policy" "allow_app_to_postgres" {
       from {
         namespace_selector {
           match_labels = {
-            name = "pf-backend"
+            name = "pf-namespace-backend"
           }
         }
 
