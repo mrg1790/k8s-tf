@@ -1,9 +1,13 @@
+resource "kubernetes_namespace" "postgres" {
+  metadata {
+    name = "postgres"
+  }
+}
+
 resource "helm_release" "postgresql" {
   name       = "pg"
-  namespace  = "postgres"
-
+  namespace  = kubernetes_namespace.postgres.metadata[0].name
   chart      = "${path.module}/charts/postgresql"
-  version    = "0.1.0" # или убери, если локальный чарт
 
   values = [
     file("${path.module}/charts/postgresql/values.yaml")
