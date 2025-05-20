@@ -592,7 +592,7 @@ primary:
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
   nodeSelector: 
-    cloud.yandex.com/node-group: postgres
+    role: "postgres"
   ## @param primary.tolerations Tolerations for PostgreSQL primary pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
