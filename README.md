@@ -16,3 +16,7 @@ export TF_VAR_yc_folder_id="$YC_FOLDER_ID"
 ```
 yc managed-kubernetes cluster get-credentials test-k8s-cluster --external
 ```
+## Имопрт конфига режистри от провайдера в docker
+```
+yc container registry configure-docker
+```
