@@ -1,5 +1,4 @@
 provider "kubernetes" {
   config_path = "~/.kube/config"
-  # опционально, если у вас несколько контекстов:
-  # config_context = "your-context-name"
+  config_context = "yc-k8s-cluster-jmhhsgnq"
 }
