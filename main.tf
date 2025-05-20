@@ -34,14 +34,14 @@ module "k8s" {
       cores          = 1
       memory         = 2
       node_disk_size = 20
-      nat            = false
+      nat            = true
     }
     postgres = {
       fixed_scale    = { size = 1 }
       cores          = 1
       memory         = 2
       node_disk_size = 20
-      nat            = false
+      nat            = true
       node_labels = {
         role = "postgres"
       }
