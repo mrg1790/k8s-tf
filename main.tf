@@ -29,7 +29,7 @@ module "k8s" {
   # 3) Группы нод: любое имя ключа — это имя пул-группы
   node_groups = {
     workers = {
-      fixed_scale    = { size = 3 }
+      fixed_scale    = { size = 1 }
       cores          = 2
       memory         = 4
       node_disk_size = 50
